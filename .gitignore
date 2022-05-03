@@ -1,0 +1,6 @@
+outputdir
+.vscode
+*.log
+*.mak
+*.win
+*.layout
