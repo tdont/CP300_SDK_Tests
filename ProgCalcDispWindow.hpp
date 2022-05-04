@@ -22,6 +22,11 @@ class ProgCalcDisplayWindow : public CPWindow
    	// virtual void OnLButtonUp(const PegPoint& p); 
 	
 private:
+    void display_value_hex(ProgClassValue& value);
+    void display_value_bin(ProgClassValue& value);
+    void display_value_oct(ProgClassValue& value);
+    void display_value_dec(ProgClassValue& value);
+
     PegRadioButton* m_rdbtn_hex;
     PegRadioButton* m_rdbtn_dec;
     PegRadioButton* m_rdbtn_oct;

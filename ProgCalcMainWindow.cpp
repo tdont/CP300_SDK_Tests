@@ -4,6 +4,7 @@
 #include "progCalcShared.h"
 #include "ProgCalcDispWindow.hpp"
 #include "PanWindow.hpp"
+#include "ProgCalcValue.hpp"
 
 #include <stdlib.h>
 #ifdef WIN32
@@ -139,6 +140,7 @@ void ProgCalcMainWindow::Draw()
 
 SIGNED ProgCalcMainWindow::Message(const PegMessage &Mesg)
 {
+  ProgClassValue toto(125, m_selectedMode, m_selectedLength);
 	switch(Mesg.wType)
     {
     	case SIGNAL( CSTM_EVENT_ADD_TEXT, PSF_CLICKED):	
@@ -156,6 +158,7 @@ SIGNED ProgCalcMainWindow::Message(const PegMessage &Mesg)
         case SIGNAL( CSTM_EVENT_TYPE_WORD, PSF_CLICKED):	
     		m_panWin->AddText("16Bits");
         m_selectedLength = LENGTH_16BIT;
+        m_dispWin->display_value(toto);
     		break;
         case SIGNAL( CSTM_EVENT_TYPE_DWORD, PSF_CLICKED):	
     		m_panWin->AddText("32bits");
@@ -197,8 +200,7 @@ SIGNED ProgCalcMainWindow::Message(const PegMessage &Mesg)
 
 void ProgCalcMainWindow::DrawWidget(void)
 {
-
-
+    
 }
 
 void ProgCalcMainWindow::DrawLines(void)

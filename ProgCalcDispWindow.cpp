@@ -78,6 +78,11 @@ ProgCalcDisplayWindow::~ProgCalcDisplayWindow()
 
 void ProgCalcDisplayWindow::display_value(ProgClassValue& value)
 {
+    display_value_hex(value);
+    display_value_bin(value);
+    display_value_dec(value);
+    display_value_oct(value);
+
     return;
 }
 
@@ -102,4 +107,30 @@ typingmode_t ProgCalcDisplayWindow::getSelectedInputType()
     }
 
     return ret_val;
+}
+
+void ProgCalcDisplayWindow::display_value_hex(ProgClassValue& value)
+{
+    static CP_CHAR hex_value[9] = {0};
+
+    CP_LongToStringHex(value.get_value(), hex_value);
+
+    hex_value[8] = 0;
+    m_pgprmt_hex->DataSet((const PEGCHAR*) hex_value);
+    return;
+}
+
+void ProgCalcDisplayWindow::display_value_bin(ProgClassValue& value)
+{
+    return;
+}
+
+void ProgCalcDisplayWindow::display_value_oct(ProgClassValue& value)
+{
+    return;
+}
+
+void ProgCalcDisplayWindow::display_value_dec(ProgClassValue& value)
+{
+    return;
 }

@@ -14,3 +14,18 @@ ProgClassValue::~ProgClassValue()
 }
 
 
+DWORD ProgClassValue::get_value()
+{
+    return m_value;
+}
+
+mode_signed_t ProgClassValue::get_mode()
+{
+    return m_mode;
+}
+
+length_t ProgClassValue::get_length()
+{
+    return m_length;
+}
+

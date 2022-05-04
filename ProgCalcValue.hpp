@@ -10,6 +10,10 @@ class ProgClassValue
     ProgClassValue(DWORD value, mode_signed_t mode, length_t length);
     virtual ~ProgClassValue();
 
+    DWORD get_value();
+    mode_signed_t get_mode();
+    length_t get_length();
+
     private:
     DWORD m_value;
     mode_signed_t m_mode;
