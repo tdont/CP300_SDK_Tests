@@ -52,8 +52,6 @@ ProgCalcMainWindow::ProgCalcMainWindow(PegRect rect, CPMainFrame *frame) :CPModu
 	r -= 20; // make the pan window a bit smaller
 	m_panWin = new PanWindow(r);
 	Add(m_panWin);
-
-  updateStatusBar();
 }    
 
 ProgCalcMainWindow::~ProgCalcMainWindow()
@@ -133,7 +131,8 @@ void ProgCalcMainWindow::Draw()
 	BeginDraw();
 	DrawFrame();
 	DrawLines();  
-  DrawWidget();
+    DrawWidget();
+    updateStatusBar();
 	DrawChildren();
 	EndDraw();
 }    
@@ -236,32 +235,40 @@ void ProgCalcMainWindow::updateStatusBar()
     switch(m_selectedMode)
     {
       case MODE_UNSIGNED:
-        memcpy(statusText, "unsigned ", sizeof("unsigned "));
+        memcpy(statusText, "unsigned", 8);
         break;
       case MODE_SIGNED:
-        memcpy(statusText, "  signed ", sizeof("  signed "));
+        memcpy(statusText, "  signed", 8);
         break;
       default:
-        memcpy(statusText, " unknown ", sizeof(" unknown "));
+        memcpy(statusText, " unknown", 8);
       break;
     }  
 
     switch(m_selectedLength)
     {
       case LENGTH_8BIT:
-        memcpy(&statusText[12], " 8 bits", sizeof(" 8 bits"));
+        memcpy(&statusText[12], " 8 bits", 7);
         break;
       case LENGTH_16BIT:
-        memcpy(&statusText[12], "16 bits", sizeof("16 bits"));
+        memcpy(&statusText[12], "16 bits", 7);
         break;
       case LENGTH_32BIT:
-        memcpy(&statusText[12], "32 bits", sizeof("32 bits"));
+        memcpy(&statusText[12], "32 bits", 7);
       break;
       default:
-        memcpy(&statusText[12], " unknown ", sizeof(" unknown "));
+        memcpy(&statusText[12], " unknown", 8);
       break;
     }  
+    
+    /* Set end of string */
+    statusText[sizeof(statusText) - 1] = 0;
    
+    PegStatusBar* bar = GetStatusBar();
+    if (bar != 0)
+    {
+      bar->SetTextField(1, statusText);
+    }
     // Set the text
     //SetStatusBar(statusText);
 }
