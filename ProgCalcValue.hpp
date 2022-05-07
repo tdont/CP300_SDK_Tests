@@ -14,6 +14,10 @@ class ProgClassValue
     mode_signed_t get_mode();
     length_t get_length();
 
+    void set_value(DWORD);
+    void set_mode(mode_signed_t);
+    void set_length(length_t);
+
     private:
     DWORD m_value;
     mode_signed_t m_mode;

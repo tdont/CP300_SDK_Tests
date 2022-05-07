@@ -28,6 +28,8 @@ class ProgCalcMainWindow : public CPModuleWindow
 	ProgCalcDisplayWindow* m_dispWin;
 	mode_signed_t m_selectedMode;
 	length_t m_selectedLength;
+	CPPegString* m_pgstr_input;
+	PegPrompt* m_pgprmt_history;
 	bool HasLines;
 };    
 

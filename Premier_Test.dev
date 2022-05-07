@@ -18,7 +18,7 @@ Icon=
 ExeOutput=outputdir
 ObjectOutput=outputdir
 OverrideOutput=0
-OverrideOutputName=
+OverrideOutputName=Premier_Test.exe
 HostApplication=
 Folders=
 CommandLine=
@@ -26,7 +26,7 @@ UseCustomMakefile=0
 CustomMakefile=
 IncludeVersionInfo=0
 SupportXPThemes=0
-CompilerSet=0
+CompilerSet=2
 CompilerSettings=0010000000000001000000
 
 [Unit1]

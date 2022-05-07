@@ -12,6 +12,8 @@
 #include <stdio.h>
 #endif
 
+#define MAINWINDOW_VERTICAL_INTERVAL (12)
+
 /* SubMendu definitions */
 PegMenuDescriptionML SubMenuMode[] = 
 {
@@ -45,14 +47,22 @@ ProgCalcMainWindow::ProgCalcMainWindow(PegRect rect, CPMainFrame *frame) :CPModu
   HasLines = false;
 	//SetScrollMode(WSM_AUTOSCROLL);
 
+  PegPrompt* m_pgprmt_history = new PegPrompt(25, 2, "History Of Command");
+  AddR(m_pgprmt_history);
+
+  CPPegString* m_pgstr_input = new CPPegString(2, 2 + MAINWINDOW_VERTICAL_INTERVAL, 200, NULL, CSTM_EVENT_INPUT_STRING);
+  AddR(m_pgstr_input);
+
   PegRect rectValDisplayer = mClient;
+  rectValDisplayer.wTop = mClient.wTop + 2 * 15;
+  rectValDisplayer.wBottom = rectValDisplayer.wTop + 75;
   m_dispWin = new ProgCalcDisplayWindow(rectValDisplayer);
   Add(m_dispWin);
 
   PegRect r = mClient;
-	r -= 20; // make the pan window a bit smaller
-	m_panWin = new PanWindow(r);
-	Add(m_panWin);
+  r -= 20; // make the pan window a bit smaller
+  m_panWin = new PanWindow(r);
+  Add(m_panWin);
 }    
 
 ProgCalcMainWindow::~ProgCalcMainWindow()
@@ -190,6 +200,13 @@ SIGNED ProgCalcMainWindow::Message(const PegMessage &Mesg)
         case SIGNAL( CSTM_EVENT_LSH, PSF_CLICKED):	
     		m_panWin->AddText("Lsh");
     		break;
+        case SIGNAL (CSTM_EVENT_HEX, PSF_DOT_ON):
+        m_panWin->AddText("HEX");
+        break;
+        case SIGNAL (CSTM_EVENT_INPUT_STRING, PSF_TEXT_EDIT):
+          toto.set_value(CP_StringToLong((CP_CHAR *) m_pgstr_input->DataGet()));
+          m_dispWin->display_value(toto);
+        break;
     	default:								
             return CPModuleWindow::Message(Mesg);
             break;

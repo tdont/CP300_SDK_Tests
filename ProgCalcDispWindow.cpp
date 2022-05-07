@@ -1,39 +1,42 @@
 #include "ProgCalcDispWindow.hpp"
 #include <stdlib.h>
+
+
+#include <stdio.h>
 #ifdef WIN32
 #include <stdio.h>
 #endif
 
 
 #define VALDISP_VERTICAL_INTERVAL (15)
-#define VALDISP_VERTICAL_OFFSET (32)
+#define VALDISP_VERTICAL_OFFSET (2)
 #define VALDISP_HORIZ_INTERVAL  (34)
 
 
 ProgCalcDisplayWindow::ProgCalcDisplayWindow(PegRect rect):CPWindow(rect)
 {
     PegThing *valueDisplayer = new PegThing(rect);
-    m_rdbtn_hex = new PegRadioButton(2, VALDISP_VERTICAL_OFFSET, "HEX");
+    m_rdbtn_hex = new PegRadioButton(rect.wLeft + 2, rect.wTop + VALDISP_VERTICAL_OFFSET, "HEX", CSTM_EVENT_HEX);
     valueDisplayer->Add(m_rdbtn_hex);
-    m_pgprmt_hex = new PegPrompt(VALDISP_HORIZ_INTERVAL, 2 + VALDISP_VERTICAL_OFFSET, (PEGCHAR*)"HEX Value");
+    m_pgprmt_hex = new PegPrompt(VALDISP_HORIZ_INTERVAL, rect.wTop + 2 + VALDISP_VERTICAL_OFFSET, (PEGCHAR*)"HEX Value");
     valueDisplayer->Add(m_pgprmt_hex);
 
-    m_rdbtn_dec = new PegRadioButton(2, VALDISP_VERTICAL_OFFSET + 1* VALDISP_VERTICAL_INTERVAL, "DEC");
+    m_rdbtn_dec = new PegRadioButton(rect.wLeft + 2, rect.wTop + VALDISP_VERTICAL_OFFSET + 1* VALDISP_VERTICAL_INTERVAL, "DEC", CSTM_EVENT_DEC);
     valueDisplayer->Add(m_rdbtn_dec);  
-    m_pgprmt_dec = new PegPrompt(VALDISP_HORIZ_INTERVAL, 2 + VALDISP_VERTICAL_OFFSET + 1* VALDISP_VERTICAL_INTERVAL, (PEGCHAR*)"DEC Value");
+    m_pgprmt_dec = new PegPrompt(VALDISP_HORIZ_INTERVAL, rect.wTop + 2 + VALDISP_VERTICAL_OFFSET + 1* VALDISP_VERTICAL_INTERVAL, (PEGCHAR*)"DEC Value");
     valueDisplayer->Add(m_pgprmt_dec);
 
-    m_rdbtn_oct = new PegRadioButton(2, VALDISP_VERTICAL_OFFSET + 2* VALDISP_VERTICAL_INTERVAL , "OCT");
+    m_rdbtn_oct = new PegRadioButton(rect.wLeft + 2, rect.wTop + VALDISP_VERTICAL_OFFSET + 2* VALDISP_VERTICAL_INTERVAL , "OCT", CSTM_EVENT_OCT);
     valueDisplayer->Add(m_rdbtn_oct);
-    m_pgprmt_oct = new PegPrompt(VALDISP_HORIZ_INTERVAL, 2 + VALDISP_VERTICAL_OFFSET + 2* VALDISP_VERTICAL_INTERVAL, (PEGCHAR*)"OCT Value");
+    m_pgprmt_oct = new PegPrompt(VALDISP_HORIZ_INTERVAL, rect.wTop + 2 + VALDISP_VERTICAL_OFFSET + 2* VALDISP_VERTICAL_INTERVAL, (PEGCHAR*)"OCT Value");
     valueDisplayer->Add(m_pgprmt_oct);
 
-    m_rdbtn_bin = new PegRadioButton(2, VALDISP_VERTICAL_OFFSET + 3* VALDISP_VERTICAL_INTERVAL, "BIN");
+    m_rdbtn_bin = new PegRadioButton(rect.wLeft + 2, rect.wTop + VALDISP_VERTICAL_OFFSET + 3* VALDISP_VERTICAL_INTERVAL, "BIN", CSTM_EVENT_BIN);
     valueDisplayer->Add(m_rdbtn_bin);
-    m_pgprmt_bin = new PegPrompt(VALDISP_HORIZ_INTERVAL, 2 + VALDISP_VERTICAL_OFFSET + 3* VALDISP_VERTICAL_INTERVAL, (PEGCHAR*)"BIN Value");
+    m_pgprmt_bin = new PegPrompt(VALDISP_HORIZ_INTERVAL, rect.wTop + 2 + VALDISP_VERTICAL_OFFSET + 3* VALDISP_VERTICAL_INTERVAL, (PEGCHAR*)"BIN Value");
     valueDisplayer->Add(m_pgprmt_bin);
 
-    AddR(valueDisplayer);
+    Add(valueDisplayer);
 
     /* Select by default Decimal entry */
     m_rdbtn_dec->SetSelected(true);
@@ -83,6 +86,8 @@ void ProgCalcDisplayWindow::display_value(ProgClassValue& value)
     display_value_dec(value);
     display_value_oct(value);
 
+    Draw();
+
     return;
 }
 
@@ -122,15 +127,37 @@ void ProgCalcDisplayWindow::display_value_hex(ProgClassValue& value)
 
 void ProgCalcDisplayWindow::display_value_bin(ProgClassValue& value)
 {
+    static CP_CHAR bin_value[33] = {0};
+    //sprintf((char*)bin_value, "%o", value.get_value());
+
+    //m_pgprmt_bin->DataSet((const PEGCHAR*) oct_value);
+    
     return;
 }
 
 void ProgCalcDisplayWindow::display_value_oct(ProgClassValue& value)
 {
+    static CP_CHAR oct_value[20] = {0};
+    sprintf((char*)oct_value, "%o", value.get_value());
+
+    m_pgprmt_oct->DataSet((const PEGCHAR*) oct_value);
+
     return;
 }
 
 void ProgCalcDisplayWindow::display_value_dec(ProgClassValue& value)
 {
+    static CP_CHAR dec_value[12] = {0};
+    if (value.get_mode() == MODE_UNSIGNED)
+    {        
+        sprintf((char*)dec_value, "%lu", value.get_value());
+    }
+    else
+    {
+        sprintf((char*)dec_value, "%ld", value.get_value());
+    }
+
+    m_pgprmt_dec->DataSet((const PEGCHAR*) dec_value);
+    
     return;
 }

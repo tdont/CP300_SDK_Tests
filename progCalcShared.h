@@ -21,6 +21,13 @@ extern "C" {
 #define CSTM_EVENT_MODE_SIGNED		2040
 #define CSTM_EVENT_MODE_UNSIGNED	2041
 
+#define CSTM_EVENT_INPUT_STRING     2050
+
+#define CSTM_EVENT_HEX			    2060
+#define CSTM_EVENT_DEC			    2061
+#define CSTM_EVENT_OCT			    2062
+#define CSTM_EVENT_BIN			    2063
+
 typedef enum
 {
     MODE_SIGNED = 0,
