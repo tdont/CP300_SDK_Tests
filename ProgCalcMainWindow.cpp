@@ -142,8 +142,9 @@ void ProgCalcMainWindow::Draw()
 	BeginDraw();
 	DrawFrame();
 	DrawLines();  
-    DrawWidget();
-    updateStatusBar();
+
+  DrawWidget();
+
 	DrawChildren();
 	EndDraw();
 }    
@@ -216,8 +217,8 @@ SIGNED ProgCalcMainWindow::Message(const PegMessage &Mesg)
 }
 
 void ProgCalcMainWindow::DrawWidget(void)
-{
-    
+{    
+    updateStatusBar();
 }
 
 void ProgCalcMainWindow::DrawLines(void)
