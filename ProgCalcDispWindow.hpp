@@ -35,6 +35,7 @@ private:
     PegPrompt* m_pgprmt_dec;
     PegPrompt* m_pgprmt_oct;
     PegPrompt* m_pgprmt_bin;
+    PegPrompt* m_pgprmt_bin_2nd_line;
 };    
 
 #endif

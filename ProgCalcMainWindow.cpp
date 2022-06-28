@@ -50,19 +50,19 @@ ProgCalcMainWindow::ProgCalcMainWindow(PegRect rect, CPMainFrame *frame) :CPModu
   PegPrompt* m_pgprmt_history = new PegPrompt(25, 2, "History Of Command");
   AddR(m_pgprmt_history);
 
-  CPPegString* m_pgstr_input = new CPPegString(2, 2 + MAINWINDOW_VERTICAL_INTERVAL, 200, NULL, CSTM_EVENT_INPUT_STRING);
+  CPPegString* m_pgstr_input = new CPPegString(2, 2 + MAINWINDOW_VERTICAL_INTERVAL, 180, NULL, CSTM_EVENT_INPUT_STRING);
   AddR(m_pgstr_input);
 
   PegRect rectValDisplayer = mClient;
   rectValDisplayer.wTop = mClient.wTop + 2 * 15;
-  rectValDisplayer.wBottom = rectValDisplayer.wTop + 75;
+  rectValDisplayer.wBottom = rectValDisplayer.wTop + 64;
   m_dispWin = new ProgCalcDisplayWindow(rectValDisplayer);
   Add(m_dispWin);
 
   PegRect r = mClient;
   r -= 20; // make the pan window a bit smaller
   m_panWin = new PanWindow(r);
-  Add(m_panWin);
+  //Add(m_panWin);
 }    
 
 ProgCalcMainWindow::~ProgCalcMainWindow()
