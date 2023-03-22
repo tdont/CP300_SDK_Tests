@@ -1,5 +1,4 @@
 outputdir
-.vscode
 *.log
 *.mak
 *.win
