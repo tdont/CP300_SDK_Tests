@@ -19,12 +19,11 @@ class ProgCalcMainWindow : public CPModuleWindow
 		
     virtual void Draw();
 	void DrawWidget(void);
-	void DrawLines(void);
 	
 	void updateStatusBar();
 	
 	private:
-	PanWindow *m_panWin;
+	//PanWindow *m_panWin;
 	ProgCalcDisplayWindow* m_dispWin;
 	mode_signed_t m_selectedMode;
 	length_t m_selectedLength;

@@ -50,7 +50,7 @@ ProgCalcMainWindow::ProgCalcMainWindow(PegRect rect, CPMainFrame *frame) :CPModu
   PegPrompt* m_pgprmt_history = new PegPrompt(25, 2, "History Of Command");
   AddR(m_pgprmt_history);
 
-  CPPegString* m_pgstr_input = new CPPegString(2, 2 + MAINWINDOW_VERTICAL_INTERVAL, 180, NULL, CSTM_EVENT_INPUT_STRING);
+  CPPegString* m_pgstr_input = new CPPegString(2, 2 + MAINWINDOW_VERTICAL_INTERVAL, 150, NULL, CSTM_EVENT_INPUT_STRING);
   AddR(m_pgstr_input);
 
   PegRect rectValDisplayer = mClient;
@@ -59,9 +59,9 @@ ProgCalcMainWindow::ProgCalcMainWindow(PegRect rect, CPMainFrame *frame) :CPModu
   m_dispWin = new ProgCalcDisplayWindow(rectValDisplayer);
   Add(m_dispWin);
 
-  PegRect r = mClient;
-  r -= 20; // make the pan window a bit smaller
-  m_panWin = new PanWindow(r);
+  // PegRect r = mClient;
+  // r -= 20; // make the pan window a bit smaller
+  // m_panWin = new PanWindow(r);
   //Add(m_panWin);
 }    
 
@@ -141,7 +141,6 @@ void ProgCalcMainWindow::Draw()
 {
 	BeginDraw();
 	DrawFrame();
-	DrawLines();  
 
   DrawWidget();
 
@@ -154,63 +153,63 @@ SIGNED ProgCalcMainWindow::Message(const PegMessage &Mesg)
   ProgClassValue toto(125, m_selectedMode, m_selectedLength);
 	switch(Mesg.wType)
     {
-    	case SIGNAL( CSTM_EVENT_ADD_TEXT, PSF_CLICKED):	
-    		m_panWin->AddText("AddText");
-    		break;
-    	case SIGNAL( CSTM_EVENT_TOGGLE_LINES, PSF_CLICKED):
-            HasLines = !HasLines;	
-			      DrawLines();
-            m_panWin->AddText("Toogle");
-    		break;
-        case SIGNAL( CSTM_EVENT_TYPE_BYTE, PSF_CLICKED):	
-    		m_panWin->AddText("8Bits");
-        m_selectedLength = LENGTH_8BIT;
-    		break;
-        case SIGNAL( CSTM_EVENT_TYPE_WORD, PSF_CLICKED):	
-    		m_panWin->AddText("16Bits");
-        m_selectedLength = LENGTH_16BIT;
-        m_dispWin->display_value(toto);
-    		break;
-        case SIGNAL( CSTM_EVENT_TYPE_DWORD, PSF_CLICKED):	
-    		m_panWin->AddText("32bits");
-        m_selectedLength = LENGTH_32BIT;
-    		break;
-        case SIGNAL( CSTM_EVENT_MODE_SIGNED, PSF_CLICKED):	
-    		m_panWin->AddText("Signed");
-        m_selectedMode = MODE_SIGNED;
-    		break;
-        case SIGNAL( CSTM_EVENT_MODE_UNSIGNED, PSF_CLICKED):	
-    		m_panWin->AddText("Unsigned");
-        m_selectedMode = MODE_UNSIGNED;
-    		break;
-        case SIGNAL( CSTM_EVENT_OP_AND, PSF_CLICKED):	
-    		m_panWin->AddText("AND");
-    		break;
-        case SIGNAL( CSTM_EVENT_OP_OR, PSF_CLICKED):	
-    		m_panWin->AddText("OR");
-    		break;
-        case SIGNAL( CSTM_EVENT_OP_NOT, PSF_CLICKED):	
-    		m_panWin->AddText("NOT");
-    		break;
-        case SIGNAL( CSTM_EVENT_OP_XOR, PSF_CLICKED):	
-    		m_panWin->AddText("XOR");
-    		break;
-        case SIGNAL( CSTM_EVENT_RSH, PSF_CLICKED):	
-    		m_panWin->AddText("Rsh");
-    		break;
-        case SIGNAL( CSTM_EVENT_LSH, PSF_CLICKED):	
-    		m_panWin->AddText("Lsh");
-    		break;
-        case SIGNAL (CSTM_EVENT_HEX, PSF_DOT_ON):
-        m_panWin->AddText("HEX");
+      case SIGNAL( CSTM_EVENT_ADD_TEXT, PSF_CLICKED):	
+      // m_panWin->AddText("AddText");
         break;
-        case SIGNAL (CSTM_EVENT_INPUT_STRING, PSF_TEXT_EDIT):
-          toto.set_value(CP_StringToLong((CP_CHAR *) m_pgstr_input->DataGet()));
-          m_dispWin->display_value(toto);
+      case SIGNAL( CSTM_EVENT_TOGGLE_LINES, PSF_CLICKED):
+          // HasLines = !HasLines;	
+          // DrawLines();
+          // m_panWin->AddText("Toogle");
+        break;
+      case SIGNAL( CSTM_EVENT_TYPE_BYTE, PSF_CLICKED):	
+      // m_panWin->AddText("8Bits");
+      m_selectedLength = LENGTH_8BIT;
+        break;
+      case SIGNAL( CSTM_EVENT_TYPE_WORD, PSF_CLICKED):	
+      // m_panWin->AddText("16Bits");
+      m_selectedLength = LENGTH_16BIT;
+      m_dispWin->display_value(toto);
+        break;
+      case SIGNAL( CSTM_EVENT_TYPE_DWORD, PSF_CLICKED):	
+      // m_panWin->AddText("32bits");
+      m_selectedLength = LENGTH_32BIT;
+        break;
+      case SIGNAL( CSTM_EVENT_MODE_SIGNED, PSF_CLICKED):	
+      // m_panWin->AddText("Signed");
+      m_selectedMode = MODE_SIGNED;
+        break;
+      case SIGNAL( CSTM_EVENT_MODE_UNSIGNED, PSF_CLICKED):	
+      // m_panWin->AddText("Unsigned");
+      m_selectedMode = MODE_UNSIGNED;
+        break;
+      case SIGNAL( CSTM_EVENT_OP_AND, PSF_CLICKED):	
+      // m_panWin->AddText("AND");
+        break;
+      case SIGNAL( CSTM_EVENT_OP_OR, PSF_CLICKED):	
+      // m_panWin->AddText("OR");
+        break;
+      case SIGNAL( CSTM_EVENT_OP_NOT, PSF_CLICKED):	
+      // m_panWin->AddText("NOT");
+        break;
+      case SIGNAL( CSTM_EVENT_OP_XOR, PSF_CLICKED):	
+      // m_panWin->AddText("XOR");
+        break;
+      case SIGNAL( CSTM_EVENT_RSH, PSF_CLICKED):	
+      // m_panWin->AddText("Rsh");
+        break;
+      case SIGNAL( CSTM_EVENT_LSH, PSF_CLICKED):	
+      // m_panWin->AddText("Lsh");
+        break;
+      case SIGNAL (CSTM_EVENT_HEX, PSF_DOT_ON):
+      // m_panWin->AddText("HEX");
+        break;
+      case SIGNAL (CSTM_EVENT_INPUT_STRING, PSF_TEXT_EDIT):
+        toto.set_value(CP_StringToLong((CP_CHAR *) m_pgstr_input->DataGet()));
+        m_dispWin->display_value(toto);
         break;
     	default:								
-            return CPModuleWindow::Message(Mesg);
-            break;
+          return CPModuleWindow::Message(Mesg);
+          break;
     }
     updateStatusBar();
     return 0;
@@ -219,29 +218,6 @@ SIGNED ProgCalcMainWindow::Message(const PegMessage &Mesg)
 void ProgCalcMainWindow::DrawWidget(void)
 {    
     updateStatusBar();
-}
-
-void ProgCalcMainWindow::DrawLines(void)
-{
-    PegColor Color(BLACK, WHITE, CF_FILL);
-    SIGNED yPos = mClient.wTop;
-
-	//Since this function can be called outside of the Draw() function, 
-	//the screen must be invalidated before drawing is allowed
-    Invalidate(); 
-    
-    // A loop that just draws black lines 4 pixels apart
-    BeginDraw(); 
-    Rectangle(mClient, Color); 
-    if(HasLines)
-    {
-        while(yPos <= mClient.wBottom)
-        {
-            Line(mClient.wLeft, yPos, mClient.wRight, yPos, Color);
-            yPos += 4;
-        }
-    }    
-    EndDraw();
 }
 
 void ProgCalcMainWindow::updateStatusBar()
