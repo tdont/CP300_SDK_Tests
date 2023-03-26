@@ -151,6 +151,8 @@ void ProgCalcMainWindow::Draw()
 SIGNED ProgCalcMainWindow::Message(const PegMessage &Mesg)
 {
   ProgClassValue toto(125, m_selectedMode, m_selectedLength);
+  ProgClassValue tartanpion(1234567890, m_selectedMode, m_selectedLength);
+  ProgClassValue maxValue(0xFFFFFFFF, m_selectedMode, m_selectedLength);
 	switch(Mesg.wType)
     {
       case SIGNAL( CSTM_EVENT_ADD_TEXT, PSF_CLICKED):	
@@ -163,7 +165,8 @@ SIGNED ProgCalcMainWindow::Message(const PegMessage &Mesg)
         break;
       case SIGNAL( CSTM_EVENT_TYPE_BYTE, PSF_CLICKED):	
       // m_panWin->AddText("8Bits");
-      m_selectedLength = LENGTH_8BIT;
+        m_selectedLength = LENGTH_8BIT;
+        m_dispWin->display_value(maxValue);
         break;
       case SIGNAL( CSTM_EVENT_TYPE_WORD, PSF_CLICKED):	
       // m_panWin->AddText("16Bits");
@@ -173,6 +176,7 @@ SIGNED ProgCalcMainWindow::Message(const PegMessage &Mesg)
       case SIGNAL( CSTM_EVENT_TYPE_DWORD, PSF_CLICKED):	
       // m_panWin->AddText("32bits");
       m_selectedLength = LENGTH_32BIT;
+        m_dispWin->display_value(tartanpion);
         break;
       case SIGNAL( CSTM_EVENT_MODE_SIGNED, PSF_CLICKED):	
       // m_panWin->AddText("Signed");
