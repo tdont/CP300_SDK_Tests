@@ -52,6 +52,8 @@ ProgCalcMainWindow::ProgCalcMainWindow(PegRect rect, CPMainFrame *frame) :CPModu
 
   CPPegString* m_pgstr_input = new CPPegString(2, 2 + MAINWINDOW_VERTICAL_INTERVAL, 150, NULL, CSTM_EVENT_INPUT_STRING);
   AddR(m_pgstr_input);
+  m_pgstr_input->SetSignals(SIGMASK(PSF_TEXT_EDIT));
+  SetDefaultFocus(m_pgstr_input);
 
   PegRect rectValDisplayer = mClient;
   rectValDisplayer.wTop = mClient.wTop + 2 * 15;
@@ -146,13 +148,18 @@ void ProgCalcMainWindow::Draw()
 
 	DrawChildren();
 	EndDraw();
-}    
+}
 
 SIGNED ProgCalcMainWindow::Message(const PegMessage &Mesg)
 {
   ProgClassValue toto(125, m_selectedMode, m_selectedLength);
   ProgClassValue tartanpion(1234567890, m_selectedMode, m_selectedLength);
   ProgClassValue maxValue(0xFFFFFFFF, m_selectedMode, m_selectedLength);
+
+  PEGCHAR* data = 0;
+
+  CPPegString* ptr_to_things_emiting = 0;
+
 	switch(Mesg.wType)
     {
       case SIGNAL( CSTM_EVENT_ADD_TEXT, PSF_CLICKED):	
@@ -207,11 +214,24 @@ SIGNED ProgCalcMainWindow::Message(const PegMessage &Mesg)
       case SIGNAL (CSTM_EVENT_HEX, PSF_DOT_ON):
       // m_panWin->AddText("HEX");
         break;
+      case SIGNAL (CSTM_EVENT_OCT, PSF_DOT_ON):
+      // m_panWin->AddText("HEX");
+        break;
+      case SIGNAL (CSTM_EVENT_DEC, PSF_DOT_ON):
+      // m_panWin->AddText("HEX");
+        break;
+      case SIGNAL (CSTM_EVENT_BIN, PSF_DOT_ON):
+      // m_panWin->AddText("HEX");
+        break;
       case SIGNAL (CSTM_EVENT_INPUT_STRING, PSF_TEXT_EDIT):
-        toto.set_value(CP_StringToLong((CP_CHAR *) m_pgstr_input->DataGet()));
+        ptr_to_things_emiting = (CPPegString*) Mesg.pSource;
+
+        data = ptr_to_things_emiting->DataGet();
+        toto.set_value(CP_StringToLong((CP_CHAR *)data));
+        //toto.set_value(0);
         m_dispWin->display_value(toto);
         break;
-    	default:								
+ 	  default:
           return CPModuleWindow::Message(Mesg);
           break;
     }
